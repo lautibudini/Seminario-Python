@@ -3,6 +3,7 @@ import random
 
 words = ["python", "programacion", "computadora", "codigo", "desarrollo",
 "inteligencia"]
+vocals = ["a", "e", "i", "o", "u"]
 
 # Elegir una palabra al azar
 
@@ -17,10 +18,40 @@ max_failures = 10
 
 guessed_letters = []
 print("¡Bienvenido al juego de adivinanzas!")
-print("Estoy pensando en una palabra. ¿Puedes adivinar cuál es?")
-word_displayed = "_" * len(secret_word)
 
-# Mostrar la palabra parcialmente adivinada
+
+print(""" seleccione que modo desea jugar : 
+      1- facil : En la palabra se muestran todas las vocales. 
+      2- medio : Se muestra la primer y ultima letra de la palabra.
+      3-dificil : No se muestra ninguna letra de la palabra. """)
+modo = int(input())
+
+# dependiendo del modo agrega las letras en caso de ser necesario a las adivinadas para ser mostradas
+if (modo == 1 ):
+    for c in secret_word:
+        if c in vocals:
+            guessed_letters.append(c)
+elif (modo == 2 ):
+    guessed_letters.append(secret_word[0])
+    guessed_letters.append(secret_word[-1])
+elif (modo == 3):
+    None
+else:
+    modo = int(input(" ingresa un numero valido para poder jugar"))
+
+# formo la palabra para poder mostrarla (dependiendo del modo ) y empezar a jugar 
+print("Estoy pensando en una palabra. ¿Puedes adivinar cuál es?")
+word_displayed= ""
+if modo == 1 or modo == 2 :
+    for c in secret_word:
+        if c in guessed_letters:
+            word_displayed += c
+        else:
+            word_displayed += "_" 
+else:
+    word_displayed = "_" * len(secret_word)
+
+# Mostrar la palabra en pantalla 
 print(f"Palabra: {word_displayed}")
 
 
